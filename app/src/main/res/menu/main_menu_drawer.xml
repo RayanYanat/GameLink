@@ -1,0 +1,80 @@
+<?xml version="1.0" encoding="utf-8"?>
+<menu xmlns:android="http://schemas.android.com/apk/res/android">
+
+    <group>
+
+        <item
+            android:id="@+id/create_annone"
+            android:title="create a annoucement">
+        </item>
+        <item
+            android:id="@+id/league_legends"
+            android:title="League of Legends">
+
+            <menu android:id="@+id/sousmenu_lol">
+
+                <item
+                    android:id="@+id/lol_stat"
+                    android:title="statistiques" />
+
+                <item
+                    android:id="@+id/lol_annonces"
+                    android:title="annonces" />
+
+                <item
+                    android:id="@+id/lol_community"
+                    android:title="communauté" />
+            </menu>
+
+        </item>
+
+        <item
+            android:id="@+id/jeux_2"
+            android:title="jeux 2">
+
+            <menu android:id="@+id/sousmenu_jeux_2">
+
+                <item
+                    android:id="@+id/jeux_2_stat"
+                    android:title="statistiques" />
+
+                <item
+                    android:id="@+id/jeux_2_annonces"
+                    android:title="annonces" />
+
+                <item
+                    android:id="@+id/jeux_2_community"
+                    android:title="communauté" />
+            </menu>
+
+        </item>
+
+        <item
+            android:id="@+id/jeux_3"
+            android:title="jeux 3">
+
+            <menu android:id="@+id/sousmenu_jeux_3">
+
+                <item
+                    android:id="@+id/jeux_3_stat"
+                    android:title="statistiques" />
+
+                <item
+                    android:id="@+id/jeux_3_annonces"
+                    android:title="annonces" />
+
+                <item
+                    android:id="@+id/jeux_3_community"
+                    android:title="communauté" />
+            </menu>
+
+        </item>
+
+        <item
+            android:id="@+id/log_out"
+            android:title="Logout">
+        </item>
+
+    </group>
+
+</menu>

@@ -1,0 +1,30 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@drawable/displays_1024"
+    xmlns:app="http://schemas.android.com/apk/res-auto">
+<Button
+    android:id="@+id/discord_lol_btn"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:padding="20dp"
+    app:layout_constraintStart_toStartOf="parent"
+    android:layout_marginTop="400dp"
+    android:layout_marginStart="15dp"
+    android:layout_marginEnd="15dp"
+    android:text="rejoint la communauté lol FR"
+    app:layout_constraintTop_toTopOf="parent"/>
+
+    <TextView
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        app:layout_constraintTop_toBottomOf="@id/discord_lol_btn"
+        app:layout_constraintStart_toStartOf="parent"
+        android:layout_marginTop="10dp"
+        android:layout_marginStart="15dp"
+        android:layout_marginEnd="15dp"
+        android:text="Bienvenue sur le serveur communautaire francophone qui a pour thème League Of Legends !Venez nous rejoindre pour trouver vos mates, discuter sur l'Esport ou encore demander des conseils pour monter en élo !See you on the Rift !"
+        android:textColor="@color/white"
+/>
+</androidx.constraintlayout.widget.ConstraintLayout>

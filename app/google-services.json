@@ -1,0 +1,39 @@
+{
+  "project_info": {
+    "project_number": "602696715322",
+    "project_id": "gamelink-3b03c",
+    "storage_bucket": "gamelink-3b03c.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:602696715322:android:07dc0745ed7e3713187903",
+        "android_client_info": {
+          "package_name": "com.example.gamelink"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "602696715322-3uj1qgmtba860l54tlrh7dvf88ar9knh.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyDdRgXRS1hj0XT64JKHisoI4v84c4BwFwk"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "602696715322-3uj1qgmtba860l54tlrh7dvf88ar9knh.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
