@@ -34,7 +34,8 @@ class LolStatFragment : Fragment() {
         super.onViewCreated(view, savedInstanceState)
         summoner_search.setOnClickListener {
             val summonerName = summoner_name.text.toString()
-            mViewModel.summonerIds(summonerName,apiKey).observe(viewLifecycleOwner,Observer<SummonerData>{
+            mViewModel.getSummonerIds(summonerName,apiKey)
+            mViewModel.response.observe(viewLifecycleOwner, Observer {
                 summoner_ID.text = it.id
                 Log.d("LolStatFragment", "LolStatFragment:" + it.id)
                 Toast.makeText(context, "zzzzzzzzz ${it.id}", Toast.LENGTH_SHORT).show()

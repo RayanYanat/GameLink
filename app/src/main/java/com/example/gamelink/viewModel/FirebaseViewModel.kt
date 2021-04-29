@@ -6,7 +6,6 @@ import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
 import com.example.gamelink.model.Annonce
-import com.example.gamelink.model.SummonerData
 import com.example.gamelink.model.User
 import com.example.gamelink.repository.FirebaseRepository
 import com.example.gamelink.repository.LolApiRepository
