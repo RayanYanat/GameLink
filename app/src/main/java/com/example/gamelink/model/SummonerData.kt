@@ -28,9 +28,16 @@ class SummonerData {
 
     @SerializedName("revisionDate")
     @Expose
-    var revisionDate: Int? = null
+    var revisionDate: Double? = null
 
     @SerializedName("summonerLevel")
     @Expose
     var summonerLevel: Int? = null
+}
+
+class MatchesHistoryId {
+    @SerializedName("ids")
+    @Expose
+    var ids : String? = null
+
 }

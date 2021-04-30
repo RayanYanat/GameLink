@@ -17,7 +17,7 @@ import kotlinx.android.synthetic.main.fragment_lol_stat.*
 class LolStatFragment : Fragment() {
 
     private lateinit var mViewModel: LolApiViewModel
-    private val apiKey = "api_key=RGAPI-bb27988b-cbb1-4767-b18b-ecac8e90c308"
+    private val apiKey = "RGAPI-f16eb781-71fb-4093-b05d-b3c502cb6b38"
 
 
     override fun onCreateView(
@@ -37,8 +37,11 @@ class LolStatFragment : Fragment() {
             mViewModel.getSummonerIds(summonerName,apiKey)
             mViewModel.response.observe(viewLifecycleOwner, Observer {
                 summoner_ID.text = it.id
-                Log.d("LolStatFragment", "LolStatFragment:" + it.id)
-                Toast.makeText(context, "zzzzzzzzz ${it.id}", Toast.LENGTH_SHORT).show()
+
+                mViewModel.getMatchHistoryIds(it.puuid!!,0,10,apiKey)
+                mViewModel.matchHistoryResponse.observe(viewLifecycleOwner, Observer {
+                    Log.d("LolStatFragment", "LolStatFragment:" + it.get(0))
+                })
             })
 
         }

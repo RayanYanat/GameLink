@@ -1,0 +1,139 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    xmlns:app="http://schemas.android.com/apk/res-auto">
+
+    <ImageView
+        android:id="@+id/image_champ_match_history"
+        android:layout_width="100dp"
+        android:layout_height="100dp"
+        android:src="@drawable/ic_baseline_videogame_asset_24"
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintStart_toStartOf="parent"/>
+
+    <TextView
+        android:id="@+id/lvl_champ_history"
+        android:layout_width="20dp"
+        android:layout_height="20dp"
+        android:gravity="center"
+        app:layout_constraintStart_toEndOf="@id/image_champ_match_history"
+        app:layout_constraintBottom_toBottomOf="parent"
+        android:textSize="15dp"
+        android:text="18"/>
+
+    <TextView
+        android:id="@+id/state_end_of_the_game"
+        android:layout_width="80dp"
+        android:layout_height="wrap_content"
+        android:gravity="center"
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintStart_toEndOf="@id/lvl_champ_history"
+        android:text="VICTORY"/>
+
+    <TextView
+        android:id="@+id/type_of_the_game"
+        android:layout_width="80dp"
+        android:layout_height="wrap_content"
+        android:gravity="center"
+        android:layout_marginTop="10dp"
+        app:layout_constraintTop_toBottomOf="@id/state_end_of_the_game"
+        app:layout_constraintStart_toEndOf="@id/lvl_champ_history"
+        android:text="RANKED"/>
+
+    <ImageView
+        android:id="@+id/summoner_1"
+        android:layout_width="40dp"
+        android:layout_height="40dp"
+        android:layout_marginTop="5dp"
+        app:layout_constraintTop_toBottomOf="@id/type_of_the_game"
+        app:layout_constraintStart_toEndOf="@id/lvl_champ_history"/>
+
+    <ImageView
+        android:id="@+id/summoner_2"
+        android:layout_width="40dp"
+        android:layout_height="40dp"
+        android:layout_marginTop="5dp"
+        android:layout_marginStart="5dp"
+        app:layout_constraintTop_toBottomOf="@id/type_of_the_game"
+        app:layout_constraintStart_toEndOf="@id/summoner_1"/>
+
+    <ImageView
+        android:id="@+id/item_1"
+        android:layout_width="40dp"
+        android:layout_height="40dp"
+        android:layout_marginTop="10dp"
+        android:layout_marginStart="20dp"
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintStart_toEndOf="@id/type_of_the_game"/>
+
+    <ImageView
+        android:id="@+id/item_2"
+        android:layout_width="40dp"
+        android:layout_height="40dp"
+        app:layout_constraintTop_toTopOf="@id/item_1"
+        app:layout_constraintStart_toEndOf="@id/item_1"/>
+
+    <ImageView
+        android:id="@+id/item_3"
+        android:layout_width="40dp"
+        android:layout_height="40dp"
+        app:layout_constraintTop_toTopOf="@id/item_2"
+        app:layout_constraintStart_toEndOf="@id/item_2"/>
+
+    <ImageView
+        android:id="@+id/item_4"
+        android:layout_width="40dp"
+        android:layout_height="40dp"
+        android:layout_marginStart="20dp"
+        app:layout_constraintTop_toBottomOf="@id/item_1"
+        app:layout_constraintStart_toEndOf="@id/type_of_the_game"/>
+
+    <ImageView
+        android:id="@+id/item_5"
+        android:layout_width="40dp"
+        android:layout_height="40dp"
+        app:layout_constraintTop_toBottomOf="@id/item_2"
+        app:layout_constraintStart_toEndOf="@id/item_4"/>
+
+    <ImageView
+        android:id="@+id/item_6"
+        android:layout_width="40dp"
+        android:layout_height="40dp"
+        app:layout_constraintTop_toBottomOf="@id/item_3"
+        app:layout_constraintStart_toEndOf="@id/item_5"/>
+
+    <TextView
+        android:id="@+id/player_kda"
+        android:layout_width="50dp"
+        android:gravity="center"
+        android:layout_height="20dp"
+        android:layout_marginTop="10dp"
+        android:layout_marginStart="10dp"
+        android:text="6/5/3"
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintStart_toEndOf="@id/item_3"/>
+
+    <TextView
+        android:id="@+id/player_farm"
+        android:layout_width="50dp"
+        android:gravity="center"
+        android:layout_height="20dp"
+        android:layout_marginTop="10dp"
+        android:layout_marginStart="10dp"
+        android:text="250"
+        app:layout_constraintTop_toBottomOf="@id/player_kda"
+        app:layout_constraintStart_toEndOf="@id/item_3"/>
+
+    <TextView
+        android:id="@+id/player_gold"
+        android:layout_width="50dp"
+        android:gravity="center"
+        android:layout_height="20dp"
+        android:layout_marginTop="10dp"
+        android:layout_marginStart="10dp"
+        android:text="14500"
+        app:layout_constraintTop_toBottomOf="@id/player_farm"
+        app:layout_constraintStart_toEndOf="@id/item_3"/>
+
+</androidx.constraintlayout.widget.ConstraintLayout>
