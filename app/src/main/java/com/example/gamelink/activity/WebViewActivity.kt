@@ -13,6 +13,6 @@ class WebViewActivity:AppCompatActivity() {
         setContentView(R.layout.webview_activity)
 
         webview.webViewClient = WebViewClient()
-        webview.loadUrl("https://discord.gg/rdtzm7RQ6h")
+        webview.loadUrl(" https://euw.leagueoflegends.com/fr-fr/")
     }
 }

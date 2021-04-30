@@ -37,10 +37,13 @@ class LolStatFragment : Fragment() {
             mViewModel.getSummonerIds(summonerName,apiKey)
             mViewModel.response.observe(viewLifecycleOwner, Observer {
                 summoner_ID.text = it.id
-
                 mViewModel.getMatchHistoryIds(it.puuid!!,0,10,apiKey)
                 mViewModel.matchHistoryResponse.observe(viewLifecycleOwner, Observer {
                     Log.d("LolStatFragment", "LolStatFragment:" + it.get(0))
+                    mViewModel.getMatchDetailData(it.get(0), apiKey)
+                    mViewModel.matchDetailData.observe(viewLifecycleOwner, Observer {
+                        Log.d("LolStatFragment", "LolStatFragment:" + it.info!!.participants!!.get(0)!!.championId)
+                    })
                 })
             })
 

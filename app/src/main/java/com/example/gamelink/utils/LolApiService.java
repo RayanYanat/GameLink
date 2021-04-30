@@ -1,6 +1,6 @@
 package com.example.gamelink.utils;
 
-import com.example.gamelink.model.MatchesHistoryId;
+import com.example.gamelink.model.DetailGameData;
 import com.example.gamelink.model.SummonerData;
 
 import java.util.List;
@@ -16,4 +16,7 @@ public interface LolApiService {
 
     @GET("matches/by-puuid/{puuid}/ids")
     Call<List<String>> getMatchesHistoryIds (@Path("puuid") String puuid, @Query("start") Integer start, @Query("count") Integer count, @Query("api_key") String key);
+
+    @GET("matches/{matchId}")
+    Call<DetailGameData> getMatchDetails (@Path("matchId")String matchId, @Query("api_key") String key);
 }

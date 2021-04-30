@@ -4,6 +4,7 @@ import android.app.Application
 import android.util.Log
 import android.widget.Toast
 import androidx.lifecycle.MutableLiveData
+import com.example.gamelink.model.DetailGameData
 import com.example.gamelink.model.MatchesHistoryId
 import com.example.gamelink.model.SummonerData
 import com.example.gamelink.utils.LolApiService
@@ -19,6 +20,7 @@ class LolApiRepository(val application: Application) {
 
     val response = MutableLiveData<SummonerData>()
     val matchHistoryResponse = MutableLiveData<List<String>>()
+    val matchDetailResponse = MutableLiveData<DetailGameData>()
 
     fun getSummonerID(summonerName: String, key: String): MutableLiveData<SummonerData> {
      //  val responseData = MutableLiveData<SummonerData>()
@@ -94,5 +96,42 @@ class LolApiRepository(val application: Application) {
 
         })
         return matchHistoryResponse
+    }
+
+    fun getMatchDetailStat(matchId: String, key: String): MutableLiveData<DetailGameData> {
+
+
+        val retrofit = Retrofit.Builder()
+            .baseUrl("https://europe.api.riotgames.com/lol/match/v5/")
+            .addConverterFactory(GsonConverterFactory.create())
+            .build()
+
+        val service = retrofit.create(LolApiService::class.java)
+
+
+
+        service.getMatchDetails(matchId, key).enqueue(object : Callback<DetailGameData> {
+            override fun onFailure(call: Call<DetailGameData>, t: Throwable) {
+                Toast.makeText(application, "Error wile accessing the API" + t, Toast.LENGTH_SHORT)
+                    .show()
+                Log.d("LolApiRepository", "MatchDetailData:" + t)
+
+            }
+
+            override fun onResponse(call: Call<DetailGameData>, resp: Response<DetailGameData>) {
+                Log.d("LolApiRepository", "MatchDetailData:" + resp.toString())
+                if (resp.body() != null) {
+                    Toast.makeText(application, "Success accessing the API", Toast.LENGTH_SHORT)
+                        .show()
+                   matchDetailResponse.value = resp.body()
+                } else {
+                    Log.d("LolApiRepository", "MatchDetailData:" + resp.errorBody().toString())
+//                    Toast.makeText(application, "Error wile accessing the API", Toast.LENGTH_SHORT)
+//                        .show()
+                }
+            }
+
+        })
+        return matchDetailResponse
     }
 }
