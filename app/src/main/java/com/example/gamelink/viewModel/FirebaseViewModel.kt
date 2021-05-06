@@ -17,7 +17,7 @@ class FirebaseViewModel : ViewModel() {
     var firebaseRepository = FirebaseRepository()
 
     var savedUsers : MutableLiveData<List<User>> = MutableLiveData()
-    lateinit var  currentUser: LiveData<User>
+    var currentUser: MutableLiveData<User> = MutableLiveData()
 
 
 
@@ -32,6 +32,14 @@ class FirebaseViewModel : ViewModel() {
     }
     fun getCurrentUserId(){
         firebaseRepository.getCurrentUserId()
+    }
+
+    fun getUser (uid: String) : LiveData<User>{
+        firebaseRepository.getUser(uid).addOnSuccessListener {
+            val userItem = it?.toObject(User::class.java)
+            currentUser.value = userItem
+        }
+        return currentUser
     }
 
 

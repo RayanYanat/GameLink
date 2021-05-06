@@ -5,7 +5,9 @@ import android.os.Bundle
 import android.util.Log
 import android.widget.*
 import androidx.fragment.app.FragmentActivity
+import androidx.lifecycle.Observer
 import androidx.lifecycle.ViewModelProviders
+import androidx.lifecycle.lifecycleScope
 import com.example.gamelink.R
 import com.example.gamelink.viewModel.FirebaseViewModel
 import com.google.android.gms.auth.api.signin.GoogleSignIn
@@ -96,6 +98,15 @@ class SignInActivity: FragmentActivity (){
         val uid = currentUser?.uid
         val username = currentUser?.displayName
         val urlPicture = currentUser?.photoUrl
-        mViewModel.createUserToFirebase(username!!,uid!!,urlPicture.toString())
+
+        mViewModel.getUser(uid!!).observe(this, Observer {
+            if(it.listAnnonce != null ){
+                mViewModel.saveAnnonceToFirebase(it.listAnnonce,uid)
+            }else{
+                mViewModel.createUserToFirebase(username!!,uid!!,urlPicture.toString())
+            }
+        })
+
+
     }
 }

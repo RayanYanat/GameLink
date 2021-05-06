@@ -3,9 +3,8 @@ package com.example.gamelink.viewModel
 import android.app.Application
 import androidx.lifecycle.AndroidViewModel
 import androidx.lifecycle.LiveData
-import com.example.gamelink.model.DetailGameData
-import com.example.gamelink.model.MatchesHistoryId
-import com.example.gamelink.model.SummonerData
+import androidx.lifecycle.MutableLiveData
+import com.example.gamelink.model.*
 import com.example.gamelink.repository.LolApiRepository
 import retrofit2.adapter.rxjava2.Result.response
 
@@ -16,11 +15,13 @@ class LolApiViewModel(app: Application)  : AndroidViewModel(app) {
     val response : LiveData<SummonerData>
     val matchHistoryResponse : LiveData<List<String>>
     val matchDetailData : LiveData<DetailGameData>
+    val rankDetailData : LiveData<List<ResponseItem?>?>
 
     init {
         response = lolApiRepository.response
         matchHistoryResponse = lolApiRepository.matchHistoryResponse
         matchDetailData = lolApiRepository.matchDetailResponse
+        rankDetailData = lolApiRepository.rankDetailsResponse
     }
 
     fun getSummonerIds( summonerName : String, key : String) {
@@ -43,5 +44,12 @@ class LolApiViewModel(app: Application)  : AndroidViewModel(app) {
         lolApiRepository.getMatchDetailStat(matchId, key)
     }
 
+    fun matchDetailData (matchId: String, key: String) : MutableLiveData<DetailGameData> {
+       return lolApiRepository.getMatchDetailStat(matchId, key)
+    }
+
+    fun getRankDetailData (summonerId: String, key: String){
+        lolApiRepository.getRankDetails(summonerId, key)
+    }
 
 }

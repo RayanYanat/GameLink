@@ -1,6 +1,8 @@
 package com.example.gamelink.utils;
 
 import com.example.gamelink.model.DetailGameData;
+import com.example.gamelink.model.RankData;
+import com.example.gamelink.model.ResponseItem;
 import com.example.gamelink.model.SummonerData;
 
 import java.util.List;
@@ -19,4 +21,7 @@ public interface LolApiService {
 
     @GET("matches/{matchId}")
     Call<DetailGameData> getMatchDetails (@Path("matchId")String matchId, @Query("api_key") String key);
+
+    @GET("entries/by-summoner/{summonerId}")
+    Call<List<ResponseItem>> getRankDetails (@Path("summonerId")String summonerId, @Query("api_key") String key);
 }
