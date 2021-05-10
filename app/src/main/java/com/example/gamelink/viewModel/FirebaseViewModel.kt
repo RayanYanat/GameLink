@@ -6,6 +6,7 @@ import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
 import com.example.gamelink.model.Annonce
+import com.example.gamelink.model.ChatMessage
 import com.example.gamelink.model.User
 import com.example.gamelink.repository.FirebaseRepository
 import com.example.gamelink.repository.LolApiRepository
@@ -17,6 +18,7 @@ class FirebaseViewModel : ViewModel() {
     var firebaseRepository = FirebaseRepository()
 
     var savedUsers : MutableLiveData<List<User>> = MutableLiveData()
+    var savedMsg : MutableLiveData<List<ChatMessage>> = MutableLiveData()
     var currentUser: MutableLiveData<User> = MutableLiveData()
 
 
@@ -43,7 +45,11 @@ class FirebaseViewModel : ViewModel() {
     }
 
 
-
+    fun createMessageToFirebase(id: String,  text: String,  fromId: String,  toId: String,  timestamp: Long){
+        firebaseRepository.createMessage(id, text, fromId, toId, timestamp).addOnFailureListener {
+            Log.e(TAG,"Failed to save Address!")
+        }
+    }
 
 
     fun createUserToFirebase(username :String, uid: String, photoUrl : String){
@@ -70,5 +76,24 @@ class FirebaseViewModel : ViewModel() {
         })
 
         return savedUsers
+    }
+
+    fun getSavedMsg(): LiveData<List<ChatMessage>> {
+        firebaseRepository.getMessagesCollection().addSnapshotListener(EventListener<QuerySnapshot> { value, e ->
+            if (e != null) {
+                Log.w(TAG, "Listen failed.", e)
+                savedMsg.value = null
+                return@EventListener
+            }
+
+            val savedUserList : MutableList<ChatMessage> = mutableListOf()
+            for (doc in value!!) {
+                val msgItem = doc.toObject(ChatMessage::class.java)
+                savedUserList.add(msgItem)
+            }
+            savedMsg.value = savedUserList
+        })
+
+        return savedMsg
     }
 }

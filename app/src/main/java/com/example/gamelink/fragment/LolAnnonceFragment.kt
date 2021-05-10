@@ -24,6 +24,7 @@ class LolAnnonceFragment : Fragment(),AnnonceAdapter.ItemClickListener {
     private lateinit var adapter: AnnonceAdapter
     private lateinit var mViewModel: FirebaseViewModel
     private val ANNONCE_ID = "ANNONCE_ID"
+    private val USER_ANNONCE_ID = "USER_ANNONCE_ID"
 
     override fun onCreateView(
         inflater: LayoutInflater,
@@ -40,6 +41,7 @@ class LolAnnonceFragment : Fragment(),AnnonceAdapter.ItemClickListener {
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
         mViewModel.getSavedUsers().observe(viewLifecycleOwner, Observer<List<User>> {
+            this.listAnnonce.clear()
             it.forEach { user ->
                 if (user.listAnnonce != null) {
                     user.listAnnonce.forEach {
@@ -76,6 +78,7 @@ class LolAnnonceFragment : Fragment(),AnnonceAdapter.ItemClickListener {
         val fragmentDetailAnnonce = DetailAnnonceFragment()
         val transaction = requireActivity().supportFragmentManager.beginTransaction()
         bundle.putString(ANNONCE_ID, annonce.annonceText)
+        bundle.putString(USER_ANNONCE_ID, annonce.uid)
         fragmentDetailAnnonce.arguments = bundle
         transaction.replace(R.id.main_fragment, fragmentDetailAnnonce).commit()
 

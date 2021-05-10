@@ -67,16 +67,16 @@ class CreateAnnonceFragment:Fragment() {
             val currentDate: String = DateFormat.getDateInstance(DateFormat.FULL).format(calendar.getTime())
             val annonce = Annonce(annonceGame,annonceText,currentDate,annonceTittle,currentUser.displayName!!,uid,currentUser.photoUrl!!.toString())
 
-//            mViewModel.getSavedUsers().observe(viewLifecycleOwner,Observer<List<User>>{
-//                it.forEach{ user ->
-//                    if (user.listAnnonce != null && user.uid == uid){
-//                        UserListAnnonce.clear()
-//                        user.listAnnonce.forEach {
-//                            UserListAnnonce.add(it)
-//                        }
-//                    }
-//                }
-//            })
+            mViewModel.getSavedUsers().observe(viewLifecycleOwner,Observer<List<User>>{
+                it.forEach{ user ->
+                    if (user.listAnnonce != null && user.uid == uid){
+                        UserListAnnonce.clear()
+                        user.listAnnonce.forEach {
+                            UserListAnnonce.add(it)
+                        }
+                    }
+                }
+            })
             UserListAnnonce.add(annonce)
             mViewModel.saveAnnonceToFirebase(UserListAnnonce,uid)
         }

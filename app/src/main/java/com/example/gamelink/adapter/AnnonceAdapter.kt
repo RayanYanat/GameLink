@@ -14,7 +14,7 @@ import kotlinx.android.synthetic.main.annonce_item.view.*
 class AnnonceAdapter(private val listUser: List<Annonce>, val listener: ItemClickListener) :
     RecyclerView.Adapter<AnnonceAdapter.AnnonceViewHolder>() {
 
-    private lateinit var mData: List<Annonce>
+    private var mData: List<Annonce> = mutableListOf()
 
     fun setResults(data: List<Annonce>) {
         mData = data
@@ -47,7 +47,7 @@ class AnnonceAdapter(private val listUser: List<Annonce>, val listener: ItemClic
 
     override fun getItemCount(): Int {
         Log.d("AnnonceAdapter", "AnnonceAdapter:" + listUser.size)
-        return if (listUser.isNotEmpty()) listUser.size else 0    }
+        return if (mData.isNotEmpty()) mData.size else 0    }
 
     class AnnonceViewHolder(view: View) : RecyclerView.ViewHolder(view) {
         val itemUsername = view.username_item

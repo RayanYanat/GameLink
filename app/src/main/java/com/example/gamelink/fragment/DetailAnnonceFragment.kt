@@ -1,5 +1,6 @@
 package com.example.gamelink.fragment
 
+import android.content.Intent
 import android.os.Bundle
 import android.util.Log
 import android.view.LayoutInflater
@@ -9,6 +10,7 @@ import androidx.fragment.app.Fragment
 import androidx.lifecycle.Observer
 import androidx.lifecycle.ViewModelProviders
 import com.example.gamelink.R
+import com.example.gamelink.activity.ChatLogActivity
 import com.example.gamelink.model.Annonce
 import com.example.gamelink.model.User
 import com.example.gamelink.viewModel.FirebaseViewModel
@@ -19,6 +21,11 @@ class DetailAnnonceFragment : Fragment() {
 
     private lateinit var mViewModel: FirebaseViewModel
     private lateinit var currentAnnonce: Annonce
+
+
+    companion object {
+        val USER_KEY = "USER_KEY"
+    }
 
     override fun onCreateView(
         inflater: LayoutInflater,
@@ -34,16 +41,34 @@ class DetailAnnonceFragment : Fragment() {
                     if (user.listAnnonce != null) {
                         user.listAnnonce.forEach {
                             if (it.annonceText == currentAnnonceId) {
-                               currentAnnonce = it
+                                currentAnnonce = it
+                                updateUi(currentAnnonce)
+                                Log.d("DetailAnnonceFragment", "DetailAnnonceFragment:" + currentAnnonce)
                             }
                         }
-                        Log.d("DetailAnnonceFragment", "DetailAnnonceFragment:" + currentAnnonce)
-                        updateUi(currentAnnonce)
+
+
                     }
                 }
             })
         }
         return view
+
+    }
+
+    override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
+        super.onViewCreated(view, savedInstanceState)
+        val selectedUserUidAnnonce = requireArguments().getString("USER_ANNONCE_ID")
+        send_msg_btn_annonce.setOnClickListener {
+            mViewModel.getUser(selectedUserUidAnnonce!!).observe(viewLifecycleOwner, Observer {
+                val selectedUserFromAnnonce = it
+                val intent = Intent(view.context, ChatLogActivity::class.java)
+                intent.putExtra(USER_KEY,selectedUserFromAnnonce)
+                startActivity(intent)
+            })
+
+        }
+
     }
 
     private fun updateUi(result: Annonce) {

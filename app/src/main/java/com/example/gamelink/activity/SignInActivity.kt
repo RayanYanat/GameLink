@@ -17,6 +17,7 @@ import com.google.android.gms.common.SignInButton
 import com.google.android.gms.common.api.ApiException
 import com.google.firebase.auth.FirebaseAuth
 import com.google.firebase.auth.GoogleAuthProvider
+import com.google.firebase.firestore.DocumentSnapshot
 
 class SignInActivity: FragmentActivity (){
 
@@ -99,11 +100,15 @@ class SignInActivity: FragmentActivity (){
         val username = currentUser?.displayName
         val urlPicture = currentUser?.photoUrl
 
-        mViewModel.getUser(uid!!).observe(this, Observer {
-            if(it.listAnnonce != null ){
-                mViewModel.saveAnnonceToFirebase(it.listAnnonce,uid)
+        mViewModel.getUser(uid!!).observe(this, Observer { user ->
+            if(user != null && user.listAnnonce != null  ){
+                mViewModel.saveAnnonceToFirebase(user.listAnnonce,uid)
             }else{
-                mViewModel.createUserToFirebase(username!!,uid!!,urlPicture.toString())
+                mViewModel.getSavedUsers().observe(this,Observer {
+                 if (!(it.contains(user))){
+                     mViewModel.createUserToFirebase(username!!,uid,urlPicture.toString())
+                 }
+                })
             }
         })
 

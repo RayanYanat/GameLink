@@ -25,7 +25,7 @@ import kotlinx.android.synthetic.main.fragment_lol_stat.*
 class LolStatFragment : Fragment(), MatchHistoryAdapter.ItemClickListener {
 
     private lateinit var mViewModel: LolApiViewModel
-    private val apiKey = "RGAPI-b26bf937-c3b6-4748-8bbe-982208d404d4"
+    private val apiKey = "RGAPI-629928fd-ad82-4b53-bac1-f822f37d9579"
     private lateinit var recyclerView: RecyclerView
     private lateinit var listDetailGameData: ArrayList<DetailGameData>
     private lateinit var adapter: MatchHistoryAdapter
