@@ -60,4 +60,5 @@ class AnnonceAdapter(private val listUser: List<Annonce>, val listener: ItemClic
     interface ItemClickListener {
         fun onItemClickListener(annonce: Annonce)
     }
+
 }

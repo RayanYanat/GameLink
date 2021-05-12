@@ -12,13 +12,11 @@ import com.example.gamelink.model.ChatMessage
 import com.example.gamelink.model.User
 import com.example.gamelink.viewModel.FirebaseViewModel
 import com.google.firebase.auth.FirebaseAuth
-import com.google.firebase.database.ChildEventListener
-import com.google.firebase.database.DataSnapshot
-import com.google.firebase.database.DatabaseError
 import com.google.firebase.database.FirebaseDatabase
 import com.google.firebase.firestore.DocumentChange
 import com.google.firebase.firestore.FirebaseFirestore
 import com.google.firebase.firestore.Query
+
 import com.xwray.groupie.GroupAdapter
 import com.xwray.groupie.Item
 import com.xwray.groupie.ViewHolder
@@ -38,13 +36,18 @@ class ChatLogActivity : AppCompatActivity() {
         setContentView(R.layout.activity_chat_log)
 
         mViewModel = ViewModelProviders.of(this).get(FirebaseViewModel::class.java)
+        val user = intent.getParcelableExtra<User>(DetailAnnonceFragment.TO_USER_KEY)
+
+
+
 
         recyclerview_chat_log.adapter = adapter
-        val user = intent.getParcelableExtra<User>(DetailAnnonceFragment.USER_KEY)
+
 
         supportActionBar?.title = user!!.uid
+        Log.d("ChatLogtouseridCreate", user?.uid)
 
-       listenForMessages()
+       listenForMessage()
 
 
 
@@ -53,47 +56,57 @@ class ChatLogActivity : AppCompatActivity() {
         }
     }
 
+    private fun listenForMessage(){
 
-    private fun listenForMessages() {
-
-        val user = intent.getParcelableExtra<User>(DetailAnnonceFragment.USER_KEY)
+        val user = intent.getParcelableExtra<User>(DetailAnnonceFragment.TO_USER_KEY)
+        val fromUser = intent.getParcelableExtra<User>(DetailAnnonceFragment.FROM_USER_KEY)
         val currentUserUid = FirebaseAuth.getInstance().uid
-        val ref = FirebaseFirestore.getInstance().collection("/user_messages/$currentUserUid/${user?.username}")
 
-        Log.d("ChatLogcurrentid", currentUserUid)
-        Log.d("ChatLogtouserid", user?.uid)
+        Log.d("ChatLogSize",currentUserUid)
 
-        ref.addSnapshotListener {snapshots, e ->
-        if (e != null) {
-            Log.w("TAG", "listen:error", e)
-            return@addSnapshotListener
-        }
+        val ref = FirebaseFirestore.getInstance().collection("/user_messages/$currentUserUid/${user?.username}").orderBy("timestamp",Query.Direction.ASCENDING)
 
-        for (dc in snapshots!!.documentChanges) {
-            Log.d("ChatLog", snapshots!!.documentChanges.size.toString())
-            if (dc.type == DocumentChange.Type.ADDED){
-                chatMessage = dc.document.toObject(ChatMessage::class.java)
-                Log.d("ChatLog", chatMessage.text)
-                Log.d("ChatLog", chatMessage.id)
+        ref.addSnapshotListener { snapshots, e ->
+            if (e != null) {
+                Log.w("TAG", "listen:error", e)
+                return@addSnapshotListener
+            }
 
-                if (chatMessage.fromId == FirebaseAuth.getInstance().uid) {
-                    mViewModel.getUser(currentUserUid!!).observe(this, Observer {
-                        adapter.add(ChatFromItem(chatMessage.text,it))
-                    })
-                } else {
-                    adapter.add(ChatToItem(chatMessage.text,user!!))
+            for (dc in snapshots!!.documentChanges) {
+                when(dc.type){
+                    DocumentChange.Type.ADDED -> run {
+                        Log.d("ChatLogSize", dc.document.data.toString())
+                        chatMessage = dc.document.toObject(ChatMessage::class.java)
+                        Log.d("ChatLog", chatMessage.text)
+                        Log.d("ChatLog", chatMessage.id)
+                        if (chatMessage.fromId == FirebaseAuth.getInstance().uid) {
+                                adapter.add(ChatFromItem(chatMessage.text,fromUser!!))
+                                Log.d("ChatLogfromuser", chatMessage.text)
+                        } else {
+                            adapter.add(ChatToItem(chatMessage.text,user!!))
+                            Log.d("ChatLogtouser", chatMessage.text)
+
+
+                        }
+                        return@run
+                    }
+                    DocumentChange.Type.MODIFIED -> {}
+                    DocumentChange.Type.REMOVED -> {}
+
+
                 }
             }
+
         }
     }
-    }
+
 
     private fun performSendMessage() {
         // how do we actually send a message to firebase...
         val text = edittext_chat_log.text.toString()
 
         val fromId = FirebaseAuth.getInstance().uid
-        val user = intent.getParcelableExtra<User>(DetailAnnonceFragment.USER_KEY)
+        val user = intent.getParcelableExtra<User>(DetailAnnonceFragment.TO_USER_KEY)
         val toId = user!!.username
 
         if (fromId == null) return
@@ -101,6 +114,7 @@ class ChatLogActivity : AppCompatActivity() {
         //val reference = FirebaseFirestore.getInstance().collection("messages")
         val reference = FirebaseFirestore.getInstance().collection("/user_messages/$fromId/$toId")
         val toReference = FirebaseFirestore.getInstance().collection("/user_messages/$toId/$fromId")
+        val msgReference = FirebaseFirestore.getInstance().collection("messages")
 
 
         val chatMessage = ChatMessage(reference.document().id,text, fromId, toId, System.currentTimeMillis() / 1000)
@@ -112,6 +126,13 @@ class ChatLogActivity : AppCompatActivity() {
             }
 
         toReference.add(chatMessage)
+        msgReference.add(chatMessage)
+
+        val latestMessageRef = FirebaseFirestore.getInstance().collection("/latest-messages/$fromId/$toId")
+        latestMessageRef.add(chatMessage)
+
+        val latestMessageToRef = FirebaseFirestore.getInstance().collection("/latest-messages/$toId/$fromId")
+        latestMessageToRef.add(chatMessage)
     }
 
 }
@@ -123,6 +144,8 @@ class ChatFromItem(val text: String,val user: User): Item<ViewHolder>() {
         val targetImageView = viewHolder.itemView.imageView
         viewHolder.itemView.textview_from_roww.text = text
         Glide.with(viewHolder.itemView).load(user.profileImageUrl).into(targetImageView)
+        Log.d("ChatLogFromPic", user.profileImageUrl)
+
     }
 
     override fun getLayout(): Int {
@@ -135,6 +158,8 @@ class ChatToItem(val text: String,val user: User): Item<ViewHolder>() {
         val targetImageView = viewHolder.itemView.imageView_to_row
         viewHolder.itemView.textview_to_row.text = text
         Glide.with(viewHolder.itemView).load(user.profileImageUrl).into(targetImageView)
+        Log.d("ChatLogToPic", user.profileImageUrl)
+
     }
 
     override fun getLayout(): Int {

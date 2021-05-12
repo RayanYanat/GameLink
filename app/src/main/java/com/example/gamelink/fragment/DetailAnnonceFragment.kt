@@ -14,6 +14,7 @@ import com.example.gamelink.activity.ChatLogActivity
 import com.example.gamelink.model.Annonce
 import com.example.gamelink.model.User
 import com.example.gamelink.viewModel.FirebaseViewModel
+import com.google.firebase.auth.FirebaseAuth
 import kotlinx.android.synthetic.main.create_annonce.*
 import kotlinx.android.synthetic.main.fragment_detail_annonce.*
 
@@ -22,10 +23,16 @@ class DetailAnnonceFragment : Fragment() {
     private lateinit var mViewModel: FirebaseViewModel
     private lateinit var currentAnnonce: Annonce
 
+    var selectedUserFromAnnonce : User? = null
+    var fromUser : User? = null
+
 
     companion object {
-        val USER_KEY = "USER_KEY"
+        val TO_USER_KEY = "USER_KEY"
+        val FROM_USER_KEY = "FROM_USER_KEY"
     }
+
+
 
     override fun onCreateView(
         inflater: LayoutInflater,
@@ -52,20 +59,35 @@ class DetailAnnonceFragment : Fragment() {
                 }
             })
         }
+
+        val selectedUserUidAnnonce = requireArguments().getString("USER_ANNONCE_ID")
+        val currentUserId = FirebaseAuth.getInstance().uid
+
+        mViewModel.getUser(selectedUserUidAnnonce!!).observe(viewLifecycleOwner, Observer {
+            Log.d("DetailAnnonceFragmenSid", "DetailAnnonceFragment:${selectedUserUidAnnonce}")
+             selectedUserFromAnnonce = it
+        })
+
+        mViewModel.getUser(currentUserId!!).observe(viewLifecycleOwner, Observer { user ->
+            fromUser = user
+        })
+
+
         return view
 
     }
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
-        val selectedUserUidAnnonce = requireArguments().getString("USER_ANNONCE_ID")
+
         send_msg_btn_annonce.setOnClickListener {
-            mViewModel.getUser(selectedUserUidAnnonce!!).observe(viewLifecycleOwner, Observer {
-                val selectedUserFromAnnonce = it
+
                 val intent = Intent(view.context, ChatLogActivity::class.java)
-                intent.putExtra(USER_KEY,selectedUserFromAnnonce)
+                intent.putExtra(TO_USER_KEY,selectedUserFromAnnonce)
+                intent.putExtra(FROM_USER_KEY,fromUser)
+            Log.d("DetailAnnonceFragmenCid", "DetailAnnonceFragment:${selectedUserFromAnnonce?.uid}")
+            Log.d("DetailAnnonceFragmenSid", "DetailAnnonceFragment:${fromUser?.uid}")
                 startActivity(intent)
-            })
 
         }
 

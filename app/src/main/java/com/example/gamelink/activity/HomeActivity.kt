@@ -15,10 +15,7 @@ import androidx.drawerlayout.widget.DrawerLayout
 import com.bumptech.glide.Glide
 import com.bumptech.glide.request.RequestOptions
 import com.example.gamelink.R
-import com.example.gamelink.fragment.CreateAnnonceFragment
-import com.example.gamelink.fragment.LolAnnonceFragment
-import com.example.gamelink.fragment.LolCommunauteFragment
-import com.example.gamelink.fragment.LolStatFragment
+import com.example.gamelink.fragment.*
 import com.firebase.ui.auth.AuthUI
 import com.google.android.gms.tasks.OnSuccessListener
 import com.google.android.material.navigation.NavigationView
@@ -82,6 +79,7 @@ class HomeActivity : AppCompatActivity(), NavigationView.OnNavigationItemSelecte
         val lolAnnonceFragment = LolAnnonceFragment()
         val lolCommunityFragment = LolCommunauteFragment()
         val lolStatFragmet = LolStatFragment()
+        val lastestMsgChatFragment = LastestMsgChatFragment()
 
         when (item.itemId) {
             R.id.create_annone -> {
@@ -111,6 +109,13 @@ class HomeActivity : AppCompatActivity(), NavigationView.OnNavigationItemSelecte
                 supportFragmentManager.beginTransaction().replace(
                     R.id.main_fragment,
                     lolCommunityFragment
+                ).commit()
+            }
+            R.id.chat -> {
+                Toast.makeText(this, "item clicked", Toast.LENGTH_SHORT).show()
+                supportFragmentManager.beginTransaction().replace(
+                    R.id.main_fragment,
+                    lastestMsgChatFragment
                 ).commit()
             }
             R.id.jeux_2_stat -> {

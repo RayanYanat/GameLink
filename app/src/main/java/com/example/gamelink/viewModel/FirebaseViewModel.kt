@@ -92,6 +92,7 @@ class FirebaseViewModel : ViewModel() {
                 savedUserList.add(msgItem)
             }
             savedMsg.value = savedUserList
+            Log.d(TAG, "savedchatmsg $savedUserList")
         })
 
         return savedMsg

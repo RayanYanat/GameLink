@@ -22,8 +22,7 @@
             android:theme="@android:style/Theme.Black.NoTitleBar"/>
         <activity android:name=".activity.HomeActivity" />
         <activity android:name=".activity.WebViewActivity" />
-        <activity android:name=".activity.ChatLogActivity"
-            android:theme="@style/Theme.AppCompat.Light.DarkActionBar"/>
+        <activity android:name=".activity.ChatLogActivity" />
     </application>
 
 </manifest>

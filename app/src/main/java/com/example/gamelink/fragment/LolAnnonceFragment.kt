@@ -79,6 +79,7 @@ class LolAnnonceFragment : Fragment(),AnnonceAdapter.ItemClickListener {
         val transaction = requireActivity().supportFragmentManager.beginTransaction()
         bundle.putString(ANNONCE_ID, annonce.annonceText)
         bundle.putString(USER_ANNONCE_ID, annonce.uid)
+        Log.d("CreateAnnonceFraguid", "CreateAnnonceBundle:" + annonce.uid)
         fragmentDetailAnnonce.arguments = bundle
         transaction.replace(R.id.main_fragment, fragmentDetailAnnonce).commit()
 
