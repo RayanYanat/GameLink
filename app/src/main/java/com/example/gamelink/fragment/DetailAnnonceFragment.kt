@@ -64,12 +64,13 @@ class DetailAnnonceFragment : Fragment() {
         val currentUserId = FirebaseAuth.getInstance().uid
 
         mViewModel.getUser(selectedUserUidAnnonce!!).observe(viewLifecycleOwner, Observer {
-            Log.d("DetailAnnonceFragmenSid", "DetailAnnonceFragment:${selectedUserUidAnnonce}")
              selectedUserFromAnnonce = it
+            Log.d("DetailAnnonceFragCid", "DetailAnnonceFragment:${selectedUserFromAnnonce}")
         })
 
         mViewModel.getUser(currentUserId!!).observe(viewLifecycleOwner, Observer { user ->
             fromUser = user
+            Log.d("DetailAnnonceFragSid", "DetailAnnonceFragment:${fromUser}")
         })
 
 

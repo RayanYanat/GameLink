@@ -29,6 +29,7 @@ class ChatLogActivity : AppCompatActivity() {
     private val adapter = GroupAdapter<ViewHolder>()
     private lateinit var mViewModel: FirebaseViewModel
     private lateinit var chatMessage: ChatMessage
+    var latestMessageId : String? = null
 
 
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -74,7 +75,7 @@ class ChatLogActivity : AppCompatActivity() {
 
             for (dc in snapshots!!.documentChanges) {
                 when(dc.type){
-                    DocumentChange.Type.ADDED -> run {
+                    DocumentChange.Type.ADDED -> {
                         Log.d("ChatLogSize", dc.document.data.toString())
                         chatMessage = dc.document.toObject(ChatMessage::class.java)
                         Log.d("ChatLog", chatMessage.text)
@@ -88,7 +89,6 @@ class ChatLogActivity : AppCompatActivity() {
 
 
                         }
-                        return@run
                     }
                     DocumentChange.Type.MODIFIED -> {}
                     DocumentChange.Type.REMOVED -> {}
@@ -129,10 +129,12 @@ class ChatLogActivity : AppCompatActivity() {
         msgReference.add(chatMessage)
 
         val latestMessageRef = FirebaseFirestore.getInstance().collection("/latest-messages/$fromId/$toId")
-        latestMessageRef.add(chatMessage)
+        latestMessageRef.document("lastestMsg").set(chatMessage)
+
 
         val latestMessageToRef = FirebaseFirestore.getInstance().collection("/latest-messages/$toId/$fromId")
-        latestMessageToRef.add(chatMessage)
+        latestMessageToRef.document("lastestMsg").set(chatMessage)
+
     }
 
 }

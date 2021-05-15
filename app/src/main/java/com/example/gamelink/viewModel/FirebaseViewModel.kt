@@ -37,11 +37,13 @@ class FirebaseViewModel : ViewModel() {
     }
 
     fun getUser (uid: String) : LiveData<User>{
+        val curreentUserr = MutableLiveData<User>()
         firebaseRepository.getUser(uid).addOnSuccessListener {
             val userItem = it?.toObject(User::class.java)
             currentUser.value = userItem
+            curreentUserr.value = userItem!!
         }
-        return currentUser
+        return curreentUserr
     }
 
 
