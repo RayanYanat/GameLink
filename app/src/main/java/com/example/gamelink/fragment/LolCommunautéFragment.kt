@@ -17,8 +17,7 @@ class LolCommunauteFragment:Fragment() {
         container: ViewGroup?,
         savedInstanceState: Bundle?
     ): View? {
-        val view = inflater.inflate((R.layout.fragment_lol_communaute), container, false)
-        return view
+        return inflater.inflate((R.layout.fragment_lol_communaute), container, false)
     }
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {

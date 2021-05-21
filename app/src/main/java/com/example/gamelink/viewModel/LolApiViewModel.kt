@@ -6,15 +6,14 @@ import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import com.example.gamelink.model.*
 import com.example.gamelink.repository.LolApiRepository
-import retrofit2.adapter.rxjava2.Result.response
 
 class LolApiViewModel(app: Application)  : AndroidViewModel(app) {
 
-    var lolApiRepository = LolApiRepository(app)
+    private var lolApiRepository = LolApiRepository(app)
 
     val response : LiveData<SummonerData>
     val matchHistoryResponse : LiveData<List<String>>
-    val matchDetailData : LiveData<DetailGameData>
+    private val matchDetailData : LiveData<DetailGameData>
     val rankDetailData : LiveData<List<ResponseItem?>?>
 
     init {

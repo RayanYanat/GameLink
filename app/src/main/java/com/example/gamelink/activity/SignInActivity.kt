@@ -3,11 +3,8 @@ package com.example.gamelink.activity
 import android.content.Intent
 import android.os.Bundle
 import android.util.Log
-import android.widget.*
 import androidx.fragment.app.FragmentActivity
-import androidx.lifecycle.Observer
-import androidx.lifecycle.ViewModelProviders
-import androidx.lifecycle.lifecycleScope
+import androidx.lifecycle.ViewModelProvider
 import com.example.gamelink.R
 import com.example.gamelink.viewModel.FirebaseViewModel
 import com.google.android.gms.auth.api.signin.GoogleSignIn
@@ -17,8 +14,8 @@ import com.google.android.gms.common.SignInButton
 import com.google.android.gms.common.api.ApiException
 import com.google.firebase.auth.FirebaseAuth
 import com.google.firebase.auth.GoogleAuthProvider
-import com.google.firebase.firestore.DocumentSnapshot
 
+@Suppress("DEPRECATION")
 class SignInActivity: FragmentActivity (){
 
     private lateinit var mAuth: FirebaseAuth
@@ -30,7 +27,7 @@ class SignInActivity: FragmentActivity (){
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.sign_in_activity)
-        mViewModel = ViewModelProviders.of(this).get(FirebaseViewModel::class.java)
+        mViewModel = ViewModelProvider(this).get(FirebaseViewModel::class.java)
         val signInBtn = findViewById<SignInButton>(R.id.sign_in_button)
 
         // Configure Google Sign In
@@ -56,7 +53,7 @@ class SignInActivity: FragmentActivity (){
     override fun onActivityResult(requestCode: Int, resultCode: Int, data: Intent?) {
         super.onActivityResult(requestCode, resultCode, data)
 
-        // Result returned from launching the Intent from GoogleSignInApi.getSignInIntent(...);
+        // Result returned from launching the Intent from GoogleSignInApi.signInIntent(...);
         if (requestCode == RC_SIGN_IN) {
             val task = GoogleSignIn.getSignedInAccountFromIntent(data)
             val exception = task.exception
@@ -100,11 +97,11 @@ class SignInActivity: FragmentActivity (){
         val username = currentUser?.displayName
         val urlPicture = currentUser?.photoUrl
 
-        mViewModel.getUser(uid!!).observe(this, Observer { user ->
-            if(user != null && user.listAnnonce != null  ){
+        mViewModel.getUser(uid!!).observe(this, { user ->
+            if(user?.listAnnonce != null){
                 mViewModel.saveAnnonceToFirebase(user.listAnnonce,uid)
             }else{
-                mViewModel.getSavedUsers().observe(this,Observer {
+                mViewModel.getSavedUsers().observe(this, {
                  if (!(it.contains(user))){
                      mViewModel.createUserToFirebase(username!!,uid,urlPicture.toString())
                  }

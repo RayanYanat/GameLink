@@ -22,8 +22,6 @@ class LolApiRepository(val application: Application) {
     val rankDetailsResponse = MutableLiveData<List<ResponseItem?>?>()
 
     fun getSummonerID(summonerName: String, key: String): MutableLiveData<SummonerData> {
-     //  val responseData = MutableLiveData<SummonerData>()
-       // val response = MutableLiveData<SummonerData>()
 
 
         val retrofit = Retrofit.Builder()
@@ -37,14 +35,14 @@ class LolApiRepository(val application: Application) {
 
         service.getSummonerData(summonerName, key).enqueue(object : Callback<SummonerData> {
             override fun onFailure(call: Call<SummonerData>, t: Throwable) {
-                Toast.makeText(application, "Error wile accessing the API" + t, Toast.LENGTH_SHORT)
+                Toast.makeText(application, "Error wile accessing the API$t", Toast.LENGTH_SHORT)
                     .show()
-                Log.d("LolApiRepository", "LolApiRepository:" + t)
+                Log.d("LolApiRepository", "LolApiRepository:$t")
 
             }
 
             override fun onResponse(call: Call<SummonerData>, resp: Response<SummonerData>) {
-                Log.d("LolApiRepository", "LolApiRepository:" + resp.toString())
+                Log.d("LolApiRepository", "LolApiRepository:$resp")
                 if (resp.body() != null) {
                     Toast.makeText(application, "Success accessing the API", Toast.LENGTH_SHORT)
                         .show()
@@ -74,14 +72,14 @@ class LolApiRepository(val application: Application) {
 
         service.getMatchesHistoryIds(puuid, start, count, key).enqueue(object : Callback<List<String>> {
             override fun onFailure(call: Call<List<String>>, t: Throwable) {
-                Toast.makeText(application, "Error wile accessing the API" + t, Toast.LENGTH_SHORT)
+                Toast.makeText(application, "Error wile accessing the API$t", Toast.LENGTH_SHORT)
                     .show()
-                Log.d("LolApiRepository", "MatchHistoryID:" + t)
+                Log.d("LolApiRepository", "MatchHistoryID:$t")
 
             }
 
             override fun onResponse(call: Call<List<String>>, resp: Response<List<String>>) {
-                Log.d("LolApiRepository", "MatchHistoryID:" + resp.toString())
+                Log.d("LolApiRepository", "MatchHistoryID:$resp")
                 if (resp.body() != null) {
                     Toast.makeText(application, "Success accessing the API", Toast.LENGTH_SHORT)
                         .show()
@@ -111,14 +109,14 @@ class LolApiRepository(val application: Application) {
 
         service.getMatchDetails(matchId, key).enqueue(object : Callback<DetailGameData> {
             override fun onFailure(call: Call<DetailGameData>, t: Throwable) {
-                Toast.makeText(application, "Error wile accessing the API" + t, Toast.LENGTH_SHORT)
+                Toast.makeText(application, "Error wile accessing the API$t", Toast.LENGTH_SHORT)
                     .show()
-                Log.d("LolApiRepository", "MatchDetailData:" + t)
+                Log.d("LolApiRepository", "MatchDetailData:$t")
 
             }
 
             override fun onResponse(call: Call<DetailGameData>, resp: Response<DetailGameData>) {
-                Log.d("LolApiRepository", "MatchDetailData:" + resp.toString())
+                Log.d("LolApiRepository", "MatchDetailData:$resp")
                 if (resp.body() != null) {
                     Toast.makeText(application, "Success accessing the API", Toast.LENGTH_SHORT)
                         .show()
@@ -126,8 +124,7 @@ class LolApiRepository(val application: Application) {
                     matchDetailResponseData.value = resp.body()
                 } else {
                     Log.d("LolApiRepository", "MatchDetailData:" + resp.errorBody().toString())
-//                    Toast.makeText(application, "Error wile accessing the API", Toast.LENGTH_SHORT)
-//                        .show()
+
                 }
             }
 
@@ -136,8 +133,6 @@ class LolApiRepository(val application: Application) {
     }
 
     fun getRankDetails(summonerId: String, key: String): MutableLiveData<List<ResponseItem?>?> {
-        //  val responseData = MutableLiveData<SummonerData>()
-        // val response = MutableLiveData<SummonerData>()
 
 
         val retrofit = Retrofit.Builder()
@@ -151,22 +146,21 @@ class LolApiRepository(val application: Application) {
 
         service.getRankDetails(summonerId, key).enqueue(object : Callback<List<ResponseItem?>?> {
             override fun onFailure(call: Call<List<ResponseItem?>?>, t: Throwable) {
-                Toast.makeText(application, "Error wile accessing the API" + t, Toast.LENGTH_SHORT)
+                Toast.makeText(application, "Error wile accessing the API$t", Toast.LENGTH_SHORT)
                     .show()
-                Log.d("LolApiRepository", "LolApiRepository:" + t)
+                Log.d("LolApiRepository", "LolApiRepository:$t")
 
             }
 
             override fun onResponse(call: Call<List<ResponseItem?>?>, resp: Response<List<ResponseItem?>?>) {
-                Log.d("LolApiRepository", "LolApiRepository:" + resp.toString())
+                Log.d("LolApiRepository", "LolApiRepository:$resp")
                 if (resp.body() != null) {
                     Toast.makeText(application, "Success accessing the API", Toast.LENGTH_SHORT)
                         .show()
                     rankDetailsResponse.value = resp.body()
                 } else {
                     Log.d("LolApiRepository", "LolApiRepository:" + resp.errorBody().toString())
-//                    Toast.makeText(application, "Error wile accessing the API", Toast.LENGTH_SHORT)
-//                        .show()
+
                 }
             }
 

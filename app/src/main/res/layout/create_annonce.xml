@@ -20,7 +20,7 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_marginTop="20dp"
-        android:hint="tittle">
+        android:hint="@string/tittle">
 
     </com.google.android.material.textfield.TextInputEditText>
 
@@ -42,7 +42,7 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_marginTop="20dp"
-            android:hint="game">
+            android:hint="@string/game">
 
         </com.google.android.material.textfield.TextInputEditText>
 
@@ -64,7 +64,7 @@
             android:layout_width="match_parent"
             android:layout_height="200dp"
             android:layout_marginTop="20dp"
-            android:hint="annonce">
+            android:hint="@string/annonce">
 
         </com.google.android.material.textfield.TextInputEditText>
 
@@ -74,7 +74,7 @@
         android:id="@+id/post_button"
         android:layout_width="150dp"
         android:layout_height="wrap_content"
-        android:text="POST"
+        android:text="@string/post"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintTop_toBottomOf="@id/desc_annonce_layout"
         android:layout_marginTop="20dp"

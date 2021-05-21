@@ -20,7 +20,6 @@ import com.firebase.ui.auth.AuthUI
 import com.google.android.gms.tasks.OnSuccessListener
 import com.google.android.material.navigation.NavigationView
 import com.google.firebase.auth.FirebaseAuth
-import kotlinx.android.synthetic.main.nav_header.*
 
 class HomeActivity : AppCompatActivity(), NavigationView.OnNavigationItemSelectedListener {
 
@@ -118,28 +117,6 @@ class HomeActivity : AppCompatActivity(), NavigationView.OnNavigationItemSelecte
                     lastestMsgChatFragment
                 ).commit()
             }
-            R.id.jeux_2_stat -> {
-                Toast.makeText(this, "item clicked", Toast.LENGTH_SHORT).show()
-
-            }
-            R.id.jeux_2_annonces -> {
-                Toast.makeText(this, "item clicked", Toast.LENGTH_SHORT).show()
-
-            }
-            R.id.jeux_2_community -> {
-                Toast.makeText(this, "item clicked", Toast.LENGTH_SHORT).show()
-            }
-            R.id.jeux_3_stat -> {
-                Toast.makeText(this, "item clicked", Toast.LENGTH_SHORT).show()
-
-            }
-            R.id.jeux_3_annonces -> {
-                Toast.makeText(this, "item clicked", Toast.LENGTH_SHORT).show()
-
-            }
-            R.id.jeux_3_community -> {
-                Toast.makeText(this, "item clicked", Toast.LENGTH_SHORT).show()
-            }
             R.id.log_out -> {
                 signOutUserFromFirebase()
                 val intent = Intent(this, SignInActivity::class.java)
@@ -150,7 +127,7 @@ class HomeActivity : AppCompatActivity(), NavigationView.OnNavigationItemSelecte
         return true
     }
 
-    fun updateUiWhenCreating() {
+    private fun updateUiWhenCreating() {
         val currentUser = mAuth.currentUser
         val navigationView = findViewById<NavigationView>(R.id.home_activity_nav_view)
         val headerContainer: View = navigationView.getHeaderView(0)
@@ -172,10 +149,10 @@ class HomeActivity : AppCompatActivity(), NavigationView.OnNavigationItemSelecte
     private fun signOutUserFromFirebase() {
         AuthUI.getInstance()
             .signOut(this)
-            .addOnSuccessListener(this, updateUIAfterRESTRequestsCompleted()!!)
+            .addOnSuccessListener(this, updateUIAfterRESTRequestsCompleted())
     }
 
-    private fun updateUIAfterRESTRequestsCompleted(): OnSuccessListener<Void?>? {
-        return OnSuccessListener { aVoid: Void? -> finish() }
+    private fun updateUIAfterRESTRequestsCompleted(): OnSuccessListener<Void?> {
+        return OnSuccessListener { finish() }
     }
 }

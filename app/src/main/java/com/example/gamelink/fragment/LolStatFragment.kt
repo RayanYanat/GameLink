@@ -6,30 +6,25 @@ import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-import android.widget.Toast
 import androidx.fragment.app.Fragment
-import androidx.lifecycle.Observer
-import androidx.lifecycle.ViewModelProviders
+import androidx.lifecycle.ViewModelProvider
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import com.bumptech.glide.Glide
 import com.example.gamelink.R
-import com.example.gamelink.adapter.AnnonceAdapter
 import com.example.gamelink.adapter.MatchHistoryAdapter
-import com.example.gamelink.model.Annonce
 import com.example.gamelink.model.DetailGameData
-import com.example.gamelink.model.SummonerData
 import com.example.gamelink.viewModel.LolApiViewModel
 import kotlinx.android.synthetic.main.fragment_lol_stat.*
 
 class LolStatFragment : Fragment(), MatchHistoryAdapter.ItemClickListener {
 
     private lateinit var mViewModel: LolApiViewModel
-    private val apiKey = "RGAPI-629928fd-ad82-4b53-bac1-f822f37d9579"
+    private val apiKey = "RGAPI-9528a816-bbdb-45c9-b818-12ed660bc439"
     private lateinit var recyclerView: RecyclerView
     private lateinit var listDetailGameData: ArrayList<DetailGameData>
     private lateinit var adapter: MatchHistoryAdapter
-    var summonerPuuid: String? = null
+    private var summonerPuuid: String? = null
 
 
     override fun onCreateView(
@@ -38,7 +33,7 @@ class LolStatFragment : Fragment(), MatchHistoryAdapter.ItemClickListener {
         savedInstanceState: Bundle?
     ): View? {
         val view = inflater.inflate(R.layout.fragment_lol_stat, container, false)
-        mViewModel = ViewModelProviders.of(this).get(LolApiViewModel::class.java)
+        mViewModel = ViewModelProvider(this).get(LolApiViewModel::class.java)
         recyclerView = view.findViewById(R.id.recycler_view_data_stat)
         configureRecyclerView()
         return view
@@ -51,7 +46,7 @@ class LolStatFragment : Fragment(), MatchHistoryAdapter.ItemClickListener {
             val summonerName = summoner_name.text.toString()
             mViewModel.getSummonerIds(summonerName, apiKey)
 
-            mViewModel.response.observe(viewLifecycleOwner, Observer {
+            mViewModel.response.observe(viewLifecycleOwner, {
                 summonerPuuid = it.puuid
                 val summonerEncryptedId = it.id
 
@@ -62,7 +57,7 @@ class LolStatFragment : Fragment(), MatchHistoryAdapter.ItemClickListener {
                 summoner_lvl_icon.text = "lvl ${it.summonerLevel}"
 
                 mViewModel.getRankDetailData(summonerEncryptedId!!,apiKey)
-                mViewModel.rankDetailData.observe(viewLifecycleOwner, Observer {
+                mViewModel.rankDetailData.observe(viewLifecycleOwner, {
 
                     val rankedTierLeague = it?.get(0)!!.tier
 
@@ -80,16 +75,14 @@ class LolStatFragment : Fragment(), MatchHistoryAdapter.ItemClickListener {
                 })
 
                 mViewModel.getMatchHistoryIds(summonerPuuid!!, 0, 10, apiKey)
-                mViewModel.matchHistoryResponse.observe(viewLifecycleOwner, Observer {
+                mViewModel.matchHistoryResponse.observe(viewLifecycleOwner, {
                     Log.d("LolStatFragment", "LolStatFragmentDetailGameDataList0:" + it)
 
                     it.forEach { matchId ->
                         mViewModel.matchDetailData(matchId, apiKey)
-                            .observe(viewLifecycleOwner, Observer { detailGameData ->
-                                Log.d("LolStatFragment", "LolStatFragmentDetailGameDataListMatchId:" + matchId)
+                            .observe(viewLifecycleOwner, { detailGameData ->
                                 listDetailGameData.add(detailGameData)
                                 updateUI(listDetailGameData)
-
                             })
                     }
                 })
@@ -99,7 +92,7 @@ class LolStatFragment : Fragment(), MatchHistoryAdapter.ItemClickListener {
 
     private fun configureRecyclerView() {
         this.listDetailGameData = ArrayList()
-        adapter = MatchHistoryAdapter(listDetailGameData, this, summonerPuuid)
+        adapter = MatchHistoryAdapter(listDetailGameData)
         recyclerView.layoutManager = LinearLayoutManager(activity)
         recyclerView.adapter = adapter
     }
@@ -109,7 +102,6 @@ class LolStatFragment : Fragment(), MatchHistoryAdapter.ItemClickListener {
         adapter.setResults(results)
         Log.d("LolStatFragment", "LolStatFragmentList:" + results.size)
         adapter.setParticipantPuuid(summonerPuuid!!)
-        Log.d("LolStatFragment", "LolStatFragmentListPuuid:" + summonerPuuid)
         adapter.notifyDataSetChanged()
 
     }
@@ -124,7 +116,6 @@ class LolStatFragment : Fragment(), MatchHistoryAdapter.ItemClickListener {
             "GOLD" -> Glide.with(this).load(R.drawable.emblem_gold).into(division_embleme_img)
             "SILVER" -> Glide.with(this).load(R.drawable.emblem_silver).into(division_embleme_img)
             "BRONZE" -> Glide.with(this).load(R.drawable.emblem_bronze).into(division_embleme_img)
-
         }
     }
 

@@ -8,17 +8,15 @@ import androidx.recyclerview.widget.RecyclerView
 import com.bumptech.glide.Glide
 import com.example.gamelink.R
 import com.example.gamelink.model.Annonce
-import com.example.gamelink.model.User
 import kotlinx.android.synthetic.main.annonce_item.view.*
 
-class AnnonceAdapter(private val listUser: List<Annonce>, val listener: ItemClickListener) :
+class AnnonceAdapter(private val listUser: List<Annonce>, private val listener: ItemClickListener) :
     RecyclerView.Adapter<AnnonceAdapter.AnnonceViewHolder>() {
 
     private var mData: List<Annonce> = mutableListOf()
 
     fun setResults(data: List<Annonce>) {
         mData = data
-        Log.d("AnnonceAdapter", "AnnonceAdapter:" + mData)
     }
 
     override fun onCreateViewHolder(
@@ -31,7 +29,7 @@ class AnnonceAdapter(private val listUser: List<Annonce>, val listener: ItemClic
     }
 
     override fun onBindViewHolder(holder: AnnonceViewHolder, position: Int) {
-        var userItem = mData[position]
+        val userItem = mData[position]
 
         Log.d("AnnonceAdapter", "AnnonceAdapter:" + userItem.annonceText)
         holder.itemUsername.text = userItem.username

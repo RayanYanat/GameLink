@@ -30,7 +30,7 @@ class FirebaseRepository {
     }
 
     fun createMessage (id: String,  text: String,  fromId: String,  toId: String,  timestamp: Long): Task<Void?> {
-        val messageToCreate = ChatMessage(id, text, fromId!!, toId,timestamp)
+        val messageToCreate = ChatMessage(id, text, fromId, toId,timestamp)
         return getMessagesCollection().document(id).set(messageToCreate)
     }
 

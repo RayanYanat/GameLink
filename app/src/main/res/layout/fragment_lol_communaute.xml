@@ -13,7 +13,7 @@
     android:layout_marginTop="400dp"
     android:layout_marginStart="15dp"
     android:layout_marginEnd="15dp"
-    android:text="rejoint la communauté lol FR"
+    android:text="@string/rejoint_la_communaut_lol_fr"
     app:layout_constraintTop_toTopOf="parent"/>
 
     <TextView
@@ -24,7 +24,7 @@
         android:layout_marginTop="10dp"
         android:layout_marginStart="15dp"
         android:layout_marginEnd="15dp"
-        android:text="Bienvenue sur le serveur communautaire francophone qui a pour thème League Of Legends !Venez nous rejoindre pour trouver vos mates, discuter sur l'Esport ou encore demander des conseils pour monter en élo !See you on the Rift !"
+        android:text="@string/bienvenue_sur_le_serveur_communautaire_francophone_qui_a_pour_th_me_league_of_legends_venez_nous_rejoindre_pour_trouver_vos_mates_discuter_sur_l_esport_ou_encore_demander_des_conseils_pour_monter_en_lo_see_you_on_the_rift"
         android:textColor="@color/white"
 />
 </androidx.constraintlayout.widget.ConstraintLayout>

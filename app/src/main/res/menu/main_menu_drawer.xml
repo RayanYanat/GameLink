@@ -33,48 +33,6 @@
         </item>
 
         <item
-            android:id="@+id/jeux_2"
-            android:title="jeux 2">
-
-            <menu android:id="@+id/sousmenu_jeux_2">
-
-                <item
-                    android:id="@+id/jeux_2_stat"
-                    android:title="statistiques" />
-
-                <item
-                    android:id="@+id/jeux_2_annonces"
-                    android:title="annonces" />
-
-                <item
-                    android:id="@+id/jeux_2_community"
-                    android:title="communauté" />
-            </menu>
-
-        </item>
-
-        <item
-            android:id="@+id/jeux_3"
-            android:title="jeux 3">
-
-            <menu android:id="@+id/sousmenu_jeux_3">
-
-                <item
-                    android:id="@+id/jeux_3_stat"
-                    android:title="statistiques" />
-
-                <item
-                    android:id="@+id/jeux_3_annonces"
-                    android:title="annonces" />
-
-                <item
-                    android:id="@+id/jeux_3_community"
-                    android:title="communauté" />
-            </menu>
-
-        </item>
-
-        <item
             android:id="@+id/log_out"
             android:title="Logout">
         </item>

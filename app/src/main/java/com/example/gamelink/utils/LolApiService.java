@@ -1,7 +1,7 @@
 package com.example.gamelink.utils;
 
 import com.example.gamelink.model.DetailGameData;
-import com.example.gamelink.model.RankData;
+
 import com.example.gamelink.model.ResponseItem;
 import com.example.gamelink.model.SummonerData;
 

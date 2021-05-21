@@ -4,12 +4,13 @@ import android.os.Parcelable
 import kotlinx.android.parcel.Parcelize
 
 @Parcelize
-data class Annonce(val gameAnnonce: String?,
-                   val annonceText: String?,
-                   val dateAnnonce: String?,
-                   val tittle: String?,
-                   val username: String ,
-                   val uid: String ,
-                   val urlPicture: String? ):Parcelable{
+data class Annonce(
+    var gameAnnonce: String?,
+    var annonceText: String?,
+    var dateAnnonce: String?,
+    var tittle: String?,
+    var username: String,
+    var uid: String,
+    var urlPicture: String? ):Parcelable{
                        constructor():this("","","","","","","")
                    }

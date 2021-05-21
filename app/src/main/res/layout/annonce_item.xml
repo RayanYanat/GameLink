@@ -27,7 +27,7 @@
         android:text="zzzzzzzzzzzzzzzzzzzzzzz"
         app:layout_constraintTop_toTopOf="parent"
         app:layout_constraintStart_toEndOf="@id/user_main_pic"
-        />
+        tools:ignore="HardcodedText" />
 
     <TextView
         android:id="@+id/tittle_item"
@@ -38,7 +38,7 @@
         android:layout_marginStart="15dp"
         app:layout_constraintStart_toEndOf="@id/user_main_pic"
         app:layout_constraintTop_toBottomOf="@+id/username_item"
-        />
+        tools:ignore="HardcodedText" />
 
     <TextView
         android:id="@+id/date_item"
@@ -49,7 +49,7 @@
         android:layout_marginStart="15dp"
         app:layout_constraintStart_toEndOf="@id/username_item"
         app:layout_constraintTop_toTopOf="parent"
-        />
+        tools:ignore="HardcodedText" />
 
     <TextView
         android:id="@+id/game_name_item"
@@ -60,5 +60,5 @@
         android:layout_marginStart="15dp"
         app:layout_constraintStart_toEndOf="@id/user_main_pic"
         app:layout_constraintTop_toBottomOf="@id/tittle_item"
-        />
+        tools:ignore="HardcodedText" />
 </androidx.constraintlayout.widget.ConstraintLayout>

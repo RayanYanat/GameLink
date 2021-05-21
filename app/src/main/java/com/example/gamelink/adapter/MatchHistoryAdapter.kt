@@ -9,7 +9,6 @@ import android.view.ViewGroup
 import android.widget.ImageView
 import android.widget.TextView
 import androidx.constraintlayout.widget.ConstraintLayout
-import androidx.core.content.ContextCompat
 import androidx.recyclerview.widget.RecyclerView
 import com.bumptech.glide.Glide
 import com.example.gamelink.R
@@ -18,9 +17,7 @@ import com.example.gamelink.model.ParticipantsItem
 import kotlinx.android.synthetic.main.lol_match_history_item.view.*
 
 class MatchHistoryAdapter(
-    private val listMatchHistoryData: List<DetailGameData>,
-    val listener: MatchHistoryAdapter.ItemClickListener,
-    val currentParticipantsPuuid: String?
+    private val listMatchHistoryData: List<DetailGameData>
 ) :
     RecyclerView.Adapter<MatchHistoryAdapter.MatchHistoryViewHolder>() {
 
@@ -31,13 +28,10 @@ class MatchHistoryAdapter(
 
     fun setResults(data: List<DetailGameData>) {
         mData = data
-        Log.d("MatchHistoryAdapter", "MatchHistoryAdapter:" + mData)
     }
 
     fun setParticipantPuuid(puuid: String) {
         participantsPuuid = puuid
-        Log.d("MatchHistoryAdapter", "MatchHistoryAdapter:" + participantsPuuid)
-
     }
 
     override fun onCreateViewHolder(
@@ -68,13 +62,15 @@ class MatchHistoryAdapter(
         holder.championLevel.text = currentParticipantsItem.champLevel.toString()
         holder.typeOfTheGame.text = matchHistoryItem.info!!.gameMode
 
-        val urlChampImg = "https://ddragon.leagueoflegends.com/cdn/11.9.1/img/champion/${currentParticipantsItem.championName}.png"
+        val urlChampImg =
+            "https://ddragon.leagueoflegends.com/cdn/11.9.1/img/champion/${currentParticipantsItem.championName}.png"
         Glide.with(holder.itemView).load(urlChampImg).into(holder.championImage)
 
 
         holder.playerFarm.text = "${currentParticipantsItem.totalMinionsKilled} cs"
         holder.playerGold.text = "${currentParticipantsItem.goldEarned} g"
-        holder.playerKda.text ="${currentParticipantsItem.kills}/${currentParticipantsItem.deaths}/${currentParticipantsItem.assists}"
+        holder.playerKda.text =
+            "${currentParticipantsItem.kills}/${currentParticipantsItem.deaths}/${currentParticipantsItem.assists}"
 
         Log.d(
             "MatchHistoryAdapter",
@@ -89,7 +85,7 @@ class MatchHistoryAdapter(
         }
 
         val summ1Id = currentParticipantsItem.summoner1Id
-        when (summ1Id){
+        when (summ1Id) {
             21 -> Glide.with(holder.itemView)
                 .load("https://ddragon.leagueoflegends.com/cdn/8.11.1/img/spell/SummonerBarrier.png")
                 .into(
@@ -148,7 +144,7 @@ class MatchHistoryAdapter(
         }
 
         val summ2Id = currentParticipantsItem.summoner2Id
-        when (summ2Id){
+        when (summ2Id) {
             21 -> Glide.with(holder.itemView)
                 .load("https://ddragon.leagueoflegends.com/cdn/8.11.1/img/spell/SummonerBarrier.png")
                 .into(
@@ -206,51 +202,58 @@ class MatchHistoryAdapter(
                 )
         }
 
-        val urlNoItem = "https://ddragon.leagueoflegends.com/cdn/8.11.1/img/spell/SummonerDarkStarChampSelect1.png"
+        val urlNoItem =
+            "https://ddragon.leagueoflegends.com/cdn/8.11.1/img/spell/SummonerDarkStarChampSelect1.png"
 
-        val urlItem1 = "https://ddragon.leagueoflegends.com/cdn/11.9.1/img/item/${currentParticipantsItem.item0}.png"
-        if (currentParticipantsItem.item0 == 0){
+        val urlItem1 =
+            "https://ddragon.leagueoflegends.com/cdn/11.9.1/img/item/${currentParticipantsItem.item0}.png"
+        if (currentParticipantsItem.item0 == 0) {
             Glide.with(holder.itemView).load(urlNoItem).into(holder.item1)
-        }else {
+        } else {
             Glide.with(holder.itemView).load(urlItem1).into(holder.item1)
         }
 
-        val urlItem2 = "https://ddragon.leagueoflegends.com/cdn/11.9.1/img/item/${currentParticipantsItem.item1}.png"
-        if (currentParticipantsItem.item1 == 0){
+        val urlItem2 =
+            "https://ddragon.leagueoflegends.com/cdn/11.9.1/img/item/${currentParticipantsItem.item1}.png"
+        if (currentParticipantsItem.item1 == 0) {
             Glide.with(holder.itemView).load(urlNoItem).into(holder.item2)
-        }else{
+        } else {
             Glide.with(holder.itemView).load(urlItem2).into(holder.item2)
         }
 
 
-        val urlItem3 = "https://ddragon.leagueoflegends.com/cdn/11.9.1/img/item/${currentParticipantsItem.item2}.png"
-        if (currentParticipantsItem.item2 == 0){
+        val urlItem3 =
+            "https://ddragon.leagueoflegends.com/cdn/11.9.1/img/item/${currentParticipantsItem.item2}.png"
+        if (currentParticipantsItem.item2 == 0) {
             Glide.with(holder.itemView).load(urlNoItem).into(holder.item3)
-        }else{
+        } else {
             Glide.with(holder.itemView).load(urlItem3).into(holder.item3)
         }
 
 
-        val urlItem4 = "https://ddragon.leagueoflegends.com/cdn/11.9.1/img/item/${currentParticipantsItem.item3}.png"
-        if (currentParticipantsItem.item3 == 0){
+        val urlItem4 =
+            "https://ddragon.leagueoflegends.com/cdn/11.9.1/img/item/${currentParticipantsItem.item3}.png"
+        if (currentParticipantsItem.item3 == 0) {
             Glide.with(holder.itemView).load(urlNoItem).into(holder.item4)
-        }else{
+        } else {
             Glide.with(holder.itemView).load(urlItem4).into(holder.item4)
         }
 
 
-        val urlItem5 = "https://ddragon.leagueoflegends.com/cdn/11.9.1/img/item/${currentParticipantsItem.item4}.png"
-        if (currentParticipantsItem.item4 == 0){
+        val urlItem5 =
+            "https://ddragon.leagueoflegends.com/cdn/11.9.1/img/item/${currentParticipantsItem.item4}.png"
+        if (currentParticipantsItem.item4 == 0) {
             Glide.with(holder.itemView).load(urlNoItem).into(holder.item5)
-        }else{
+        } else {
             Glide.with(holder.itemView).load(urlItem5).into(holder.item5)
         }
 
 
-        val urlItem6 = "https://ddragon.leagueoflegends.com/cdn/11.9.1/img/item/${currentParticipantsItem.item5}.png"
-        if (currentParticipantsItem.item5 == 0){
+        val urlItem6 =
+            "https://ddragon.leagueoflegends.com/cdn/11.9.1/img/item/${currentParticipantsItem.item5}.png"
+        if (currentParticipantsItem.item5 == 0) {
             Glide.with(holder.itemView).load(urlNoItem).into(holder.item6)
-        }else{
+        } else {
             Glide.with(holder.itemView).load(urlItem6).into(holder.item6)
         }
 

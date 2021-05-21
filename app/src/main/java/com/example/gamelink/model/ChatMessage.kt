@@ -1,5 +1,5 @@
 package com.example.gamelink.model
 
-data class ChatMessage(val id: String, val text: String, val fromId: String, val toId: String, val timestamp: Long) {
+data class ChatMessage(var id: String, var text: String, var fromId: String, var toId: String, var timestamp: Long) {
     constructor() : this("", "", "", "", -1)
 }

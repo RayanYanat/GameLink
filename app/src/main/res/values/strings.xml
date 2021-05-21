@@ -1,3 +1,18 @@
 <resources>
     <string name="app_name">GameLink</string>
+    <string name="enter_message">Enter Message</string>
+    <string name="send">Send</string>
+    <string name="gamelink">GameLink</string>
+    <string name="tittle">tittle</string>
+    <string name="game">game</string>
+    <string name="annonce">annonce</string>
+    <string name="post">POST</string>
+    <string name="send_msg">SEND MSG</string>
+    <string name="rejoint_la_communaut_lol_fr">rejoint la communauté lol FR</string>
+    <string name="bienvenue_sur_le_serveur_communautaire_francophone_qui_a_pour_th_me_league_of_legends_venez_nous_rejoindre_pour_trouver_vos_mates_discuter_sur_l_esport_ou_encore_demander_des_conseils_pour_monter_en_lo_see_you_on_the_rift">Bienvenue sur le serveur communautaire francophone qui a pour thème League Of Legends !Venez nous rejoindre pour trouver vos mates, discuter sur l\'Esport ou encore demander des conseils pour monter en élo !See you on the Rift !</string>
+    <string name="summoner_name">summoner name</string>
+    <string name="username">Username</string>
+    <string name="email">email</string>
+    <string name="find_game_partners_and_join_communities_of_players">find game partners and join communities of players</string>
+    <string name="welcome">Welcome</string>
 </resources>
