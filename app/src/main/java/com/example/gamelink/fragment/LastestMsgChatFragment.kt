@@ -94,6 +94,7 @@ class LastestMsgChatFragment : Fragment() {
     }
 
     private fun refreshRecyclerViewMessages() {
+        adapter.clear()
         latestMessagesMap.values.forEach {
             Log.d("lastestChatLog3",it.text)
             adapter.add(LatestMessageRow(it))

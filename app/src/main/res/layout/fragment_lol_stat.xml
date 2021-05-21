@@ -36,7 +36,7 @@
         android:id="@+id/summoner_search"
         android:layout_width="50dp"
         android:layout_height="60dp"
-        android:drawableStart="@drawable/ic_baseline_search_24"
+        app:icon = "@drawable/ic_baseline_search_24"
         app:layout_constraintBottom_toBottomOf="@id/summoner_name_layout"
         app:layout_constraintStart_toEndOf="@id/summoner_name_layout"
         app:layout_constraintTop_toTopOf="@id/summoner_name_layout" />
