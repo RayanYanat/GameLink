@@ -18,8 +18,8 @@ quel joueur européen à partir de son pseudo.
 
 #Compétences
 
-Kotlin
-Retrofit
-Firebase
-Firestore
-RxJava
+* Kotlin
+* Retrofit
+* Firebase
+* Firestore
+* RxJava
